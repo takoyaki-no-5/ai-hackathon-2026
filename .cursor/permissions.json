@@ -1,0 +1,57 @@
+{
+  // 簡単な調査・ビルド系は自動許可。破壊的操作は Auto-review に任せる。
+  "terminalAllowlist": [
+    "git status",
+    "git diff",
+    "git log",
+    "git show",
+    "git branch",
+    "git remote",
+    "git rev-parse",
+    "git ls-files",
+    "ls",
+    "dir",
+    "pwd",
+    "cd",
+    "cat",
+    "type",
+    "head",
+    "tail",
+    "echo",
+    "which",
+    "where",
+    "rg",
+    "grep",
+    "find",
+    "npm",
+    "npx",
+    "pnpm",
+    "yarn",
+    "node",
+    "python",
+    "python3",
+    "py",
+    "pip",
+    "pip3",
+    "cargo",
+    "make",
+    "gh",
+    "Get-ChildItem",
+    "Get-Content",
+    "Get-Location",
+    "Get-Command",
+    "Select-Object",
+    "Write-Host"
+  ],
+  "autoRun": {
+    "allow_instructions": [
+      "Read-only shell commands are fine to auto-approve: list files, show status, diff, log, search, print env that is not secrets.",
+      "Package manager install/build/test commands (npm, pnpm, yarn) are fine to auto-approve.",
+      "Non-destructive git read commands and simple formatting/lint checks are fine."
+    ],
+    "block_instructions": [
+      "Always ask before deleting files, resetting git history, force-push, or rewriting .env / credentials.",
+      "Always ask before rm -rf, Remove-Item -Recurse -Force, or commands that modify system config."
+    ]
+  }
+}

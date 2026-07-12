@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CSS Live Gen — HTML+anim</title>
+  <style id="safe-base">
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; font-family: "Segoe UI", system-ui, sans-serif;
+      background: #0b0d12; color: #e8eaef;
+      display: grid; grid-template-rows: auto 1fr auto;
+    }
+    header, footer { padding: 12px 16px; border-bottom: 1px solid #22283a; }
+    footer { border-bottom: 0; border-top: 1px solid #22283a; font-size: 12px; opacity: 0.75; line-height: 1.5; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    input, button {
+      font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid #333a50;
+      background: #141824; color: inherit;
+    }
+    button { cursor: pointer; background: #3b82f6; border-color: #3b82f6; }
+    button:disabled { opacity: 0.5; cursor: wait; }
+    button.secondary { background: transparent; border-color: #333a50; }
+    #stage {
+      position: relative; overflow: hidden; min-height: 58vh;
+      transition: background .4s ease;
+    }
+    #canvas {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      padding: 32px;
+    }
+    #status {
+      position: absolute; left: 12px; top: 12px; z-index: 5; font-size: 12px;
+      padding: 4px 8px; border-radius: 999px; background: #141824aa; border: 1px solid #333a50;
+    }
+    #log {
+      position: absolute; right: 12px; bottom: 12px; z-index: 5; font-size: 11px;
+      opacity: 0.55; max-width: min(420px, 45%); white-space: pre-wrap; text-align: right;
+    }
+    /* AI HTML の最低限の土台 */
+    .scene { width: min(920px, 100%); text-align: center; position: relative; }
+    .scene h1 { font-size: clamp(2rem, 7vw, 4rem); margin: 0 0 .4em; line-height: 1.15; }
+    .scene p { margin: 0; opacity: .85; font-size: clamp(1rem, 2.5vw, 1.35rem); }
+  </style>
+  <style id="live-css"></style>
+</head>
+<body>
+  <header>
+    <div class="controls">
+      <input id="theme" placeholder="テーマ（自由にどうぞ）" size="36" value="真夏の夜の嘘" />
+      <button id="gen">AIで表現</button>
+      <button id="genStream" class="secondary">3シーン連続</button>
+      <button id="reset" class="secondary">リセット</button>
+      <span id="engineLabel" style="font-size:12px;opacity:.7"></span>
+    </div>
+  </header>
+
+  <main id="stage">
+    <div id="status">ready</div>
+    <div id="canvas">
+      <div class="scene"><h1>THEME</h1><p>AIが HTML とアニメを生成します</p></div>
+    </div>
+    <div id="log"></div>
+  </main>
+
+  <footer>
+    AIは <code>html</code> + <code>css</code> + <code>bg</code> を返す。script / 外部URL は弾く。
+  </footer>
+
+  <script>
+    const DEFAULT_HTML = `<div class="scene"><h1>THEME</h1><p>AIが HTML とアニメを生成します</p></div>`;
+    const ALLOWED = new Set(["DIV", "SPAN", "H1", "H2", "H3", "P", "EM", "STRONG", "BR", "UL", "LI"]);
+
+    function setStatus(t) { document.getElementById("status").textContent = t; }
+    function log(msg) { document.getElementById("log").textContent = msg; }
+
+    function sanitizeCss(css) {
+      const s = String(css || "");
+      if (/@import|expression\s*\(|javascript:|behavior:|url\s*\(/i.test(s)) return "";
+      return s.slice(0, 5000);
+    }
+
+    function sanitizeHtml(html) {
+      const tpl = document.createElement("template");
+      tpl.innerHTML = String(html || "").slice(0, 4000);
+      const walk = (node) => {
+        [...node.children].forEach((el) => {
+          if (!ALLOWED.has(el.tagName)) {
+            el.replaceWith(...el.childNodes);
+            return;
+          }
+          [...el.attributes].forEach((a) => {
+            const n = a.name.toLowerCase();
+            if (n.startsWith("on") || n === "href" || n === "src" || n === "style" && /expression|url\(/i.test(a.value)) {
+              el.removeAttribute(a.name);
+            }
+            // class / id のみ許可（style属性はCSS側へ寄せるが、簡易演出用に残すなら制限）
+            if (!["class", "id"].includes(n) && n !== "style") el.removeAttribute(a.name);
+            if (n === "style" && /expression|url\(|javascript:/i.test(a.value)) el.removeAttribute("style");
+          });
+          walk(el);
+        });
+      };
+      walk(tpl.content);
+      // ルートに .scene が無ければ包む
+      const root = tpl.content.querySelector(".scene") || (() => {
+        const d = document.createElement("div");
+        d.className = "scene";
+        d.append(...tpl.content.childNodes);
+        return d;
+      })();
+      return root.outerHTML;
+    }
+
+    function applyScene(payload, source) {
+      const bg = String(payload.bg || "#0b0d12").slice(0, 160);
+      const css = sanitizeCss(payload.css);
+      const html = sanitizeHtml(payload.html || DEFAULT_HTML);
+      if (/@import|javascript:/i.test(css)) {
+        setStatus("blocked css");
+        return;
+      }
+      document.getElementById("stage").style.background = bg;
+      document.getElementById("live-css").textContent = css;
+      document.getElementById("canvas").innerHTML = html;
+      setStatus(source || "applied");
+      log(JSON.stringify({ bg, html: html.slice(0, 180) + "…", css: css.slice(0, 180) + "…" }, null, 2));
+    }
+
+    async function askAI(theme, beat) {
+      const res = await fetch("/api/style", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ theme, beat })
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || res.statusText);
+      }
+      return res.json();
+    }
+
+    async function generateOnce() {
+      const theme = document.getElementById("theme").value.trim();
+      const btn = document.getElementById("gen");
+      btn.disabled = true;
+      setStatus("AI thinking…");
+      try {
+        applyScene(await askAI(theme, "main"), "openai");
+      } catch (e) {
+        setStatus("error");
+        log(String(e.message || e));
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function generateStream() {
+      const theme = document.getElementById("theme").value.trim();
+      const btn = document.getElementById("genStream");
+      btn.disabled = true;
+      try {
+        for (const beat of ["intro", "peak", "outro"]) {
+          setStatus(`AI ${beat}…`);
+          applyScene(await askAI(theme, beat), `openai:${beat}`);
+          await new Promise((r) => setTimeout(r, 900));
+        }
+      } catch (e) {
+        setStatus("error");
+        log(String(e.message || e));
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    document.getElementById("gen").onclick = generateOnce;
+    document.getElementById("genStream").onclick = generateStream;
+    document.getElementById("reset").onclick = () => {
+      document.getElementById("live-css").textContent = "";
+      document.getElementById("stage").style.background = "";
+      document.getElementById("canvas").innerHTML = DEFAULT_HTML;
+      setStatus("reset");
+      log("");
+    };
+
+    fetch("/api/health").then((r) => r.json()).then((j) => {
+      document.getElementById("engineLabel").textContent = j.ok
+        ? `engine: ${j.model}`
+        : "engine: APIキー未設定";
+    }).catch(() => {
+      document.getElementById("engineLabel").textContent = "server未起動";
+    });
+  </script>
+</body>
+</html>
