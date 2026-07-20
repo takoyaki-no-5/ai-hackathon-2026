@@ -1,0 +1,43 @@
+# mainへのpushをDiscordへ通知する。
+# Required secret: DISCORD_WEBHOOK_URL
+name: Notify Discord on push
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  discord-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord message
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PUSH_ACTOR: ${{ github.actor }}
+          PUSH_SHA: ${{ github.sha }}
+          PUSH_MESSAGE: ${{ github.event.head_commit.message }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "::warning::DISCORD_WEBHOOK_URL is not set; notification skipped"
+            exit 0
+          fi
+
+          SHORT_SHA="${PUSH_SHA:0:7}"
+          COMMIT_URL="https://github.com/${REPOSITORY}/commit/${PUSH_SHA}"
+          if [ -z "$PUSH_MESSAGE" ]; then
+            PUSH_MESSAGE="Discord webhook test"
+          fi
+          TEXT="**${REPOSITORY}** main updated
+          by: ${PUSH_ACTOR}
+          [${SHORT_SHA}](${COMMIT_URL}) - ${PUSH_MESSAGE}"
+
+          jq -n --arg content "$TEXT" '{content: $content}' > payload.json
+
+          curl --fail-with-body --silent --show-error \
+            -X POST "$DISCORD_WEBHOOK_URL?wait=true" \
+            -H "Content-Type: application/json" \
+            --data-binary @payload.json

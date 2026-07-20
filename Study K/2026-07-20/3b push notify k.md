@@ -1,43 +1,65 @@
-### 3b. push 通知 ON（K・Windows）
+### 3b. push 通知（Discord）
 
-F の push も **自分の push も** PC 画面に出す。
+`main` へ push したら **K も F もDiscord**に届く（自分のpush含む）。
 
 ### 完了の定義
 
-- [ ] リポを **Watch → All Activity**
-- [ ] **Chrome の GitHub 通知**が ON（F の push 用）
-- [ ] `.\scripts\push-notify.ps1` で push すると **自分の PC にも通知**（自分の push 用）
+- [ ] 通知チャンネルのWebhookを作った
+- [ ] GitHub Secret `DISCORD_WEBHOOK_URL` を入れた
+- [ ] 手動テストでDiscordに届いた
+- [ ] K/Fともチャンネル通知が画面に出る
 
-### A. GitHub 通知（F の push など）
+### 1. Discord側
 
-1. リポ → **Watch** → **All Activity**
-2. [通知設定](https://github.com/settings/notifications) → **Watching** を ON（Web）
-3. Chrome で github.com の通知を **許可**
-4. Windows: **設定 → システム → 通知 → Google Chrome** → ON
+1. 通知用チャンネル（例: `#github-push`）を作る
+2. チャンネル設定 → **連携サービス → ウェブフック**
+3. Webhookを作成 → URLをコピー
+4. K/Fともチャンネルの **通知設定 → すべてのメッセージ**
+5. Discordアプリのデスクトップ通知をON
 
-※ 自分が Owner のリポだと **自分の push は GitHub 通知に出ない** ことがある → B もセットで。
+Webhook URLはトークンを含む秘密情報。チャット・ノート・コミットに貼らない。
+漏らした場合はDiscord側で削除し、作り直す。
 
-### B. 自分の push も通知（ローカル）
+### コマンドでできる部分
 
-普段の push は script 経由にする:
-
-```powershell
-.\scripts\push-notify.ps1 origin main
-```
-
-引数省略時も `origin main` へ push。
-
-任意: 毎回打たなくてよいように alias（PowerShell プロファイル）:
+GitHub CLI が無ければ:
 
 ```powershell
-function gpush { & "$PWD\scripts\push-notify.ps1" @args }
+winget install --id GitHub.cli
+gh auth login
 ```
 
-### 確認
+Secret は値をコマンド行に書かず、入力待ちで貼る:
 
-1. `.\scripts\push-notify.ps1` → 右下に **Git push 完了**
-2. F に test push を頼む → Chrome / GitHub 通知が出るか
+```powershell
+gh secret set DISCORD_WEBHOOK_URL
+```
+
+push せず通知だけテスト:
+
+```powershell
+gh workflow run notify-discord-on-push.yml
+gh run watch
+```
+
+通常の push:
+
+```powershell
+git push origin main
+```
+
+### F がやること
+
+- Discordサーバーの通知チャンネルに入る
+- チャンネル通知を **すべてのメッセージ** にする
+- Discordアプリのデスクトップ通知をON
+
+### 仕組み
+
+- `.github/workflows/notify-discord-on-push.yml`
+- GitHub Actions → Discord Webhook
+- 既存ChatGPT Bot／Google Cloudは使わない
 
 ### 関連
 
-[[Study K/2026-07-20/3 invite repo|#3 F 招待]] / [[Study F/2026-07-20/2 clone and start|F 側の通知設定]]
+[[Study K/2026-07-20/3 invite repo|#3 F 招待]] / [[Guides/Prep/2026-07-20/3a push notify discord|push通知]]
