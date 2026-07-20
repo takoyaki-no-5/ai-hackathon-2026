@@ -46,7 +46,7 @@ messages: [
 
 ```powershell
 git add .
-git commit -m "rehearsal: theme shell"
+git commit -m "リハ用のテーマ殻を載せる。"
 git push
 ```
 

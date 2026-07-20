@@ -1,13 +1,14 @@
 ### 3b. push 通知（Discord）
 
-`main` へ push したら **K も F もDiscord**に届く（自分のpush含む）。
+`main` へ push したら **K も F もDiscord**に届く（自分のpush含む）。  
+通知文の中心は **コミットメッセージ（日本語）**。push専用メッセージはない。
 
 ### 完了の定義
 
-- [ ] 通知チャンネルのWebhookを作った
-- [ ] GitHub Secret `DISCORD_WEBHOOK_URL` を入れた
-- [ ] 手動テストでDiscordに届いた
-- [ ] K/Fともチャンネル通知が画面に出る
+- [x] 通知チャンネルのWebhookを作った
+- [x] GitHub Secret `DISCORD_WEBHOOK_URL` を入れた
+- [x] 手動テスト／実pushでDiscordに届いた
+- [ ] K/Fともチャンネル通知が画面に出る（Fは [[Guides/Prep/2026-07-20/3a push notify discord|3a]]）
 
 ### 1. Discord側
 
@@ -17,8 +18,8 @@
 4. K/Fともチャンネルの **通知設定 → すべてのメッセージ**
 5. Discordアプリのデスクトップ通知をON
 
-Webhook URLはトークンを含む秘密情報。チャット・ノート・コミットに貼らない。
-漏らした場合はDiscord側で削除し、作り直す。
+Webhook URLはトークンを含む秘密情報。チャット・ノート・コミットに貼らない。  
+漏らした場合はDiscord側で削除し、作り直す → Secretも更新。
 
 ### コマンドでできる部分
 
@@ -26,20 +27,25 @@ GitHub CLI が無ければ:
 
 ```powershell
 winget install --id GitHub.cli
-gh auth login
+```
+
+PATHに無いときはフルパス:
+
+```powershell
+& "C:\Program Files\GitHub CLI\gh.exe" auth status
 ```
 
 Secret は値をコマンド行に書かず、入力待ちで貼る:
 
 ```powershell
-gh secret set DISCORD_WEBHOOK_URL
+& "C:\Program Files\GitHub CLI\gh.exe" secret set DISCORD_WEBHOOK_URL
 ```
 
 push せず通知だけテスト:
 
 ```powershell
-gh workflow run notify-discord-on-push.yml
-gh run watch
+& "C:\Program Files\GitHub CLI\gh.exe" workflow run notify-discord-on-push.yml
+& "C:\Program Files\GitHub CLI\gh.exe" run watch
 ```
 
 通常の push:
@@ -58,7 +64,9 @@ git push origin main
 
 - `.github/workflows/notify-discord-on-push.yml`
 - GitHub Actions → Discord Webhook
+- コミットメッセージは日本語（`.cursor/rules/git.mdc`）
 - 既存ChatGPT Bot／Google Cloudは使わない
+- Webhookは `secrets/.env` ではなく **GitHub Actions Secret**
 
 ### 関連
 

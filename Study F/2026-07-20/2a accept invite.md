@@ -7,7 +7,7 @@
 - [ ] GitHub 通知 or メールで招待を見つけた
 - [ ] **Accept invitation** を押した
 - [ ] リポが開ける（下の URL）
-- [ ] K に「Accept できた」と LINE 等で送った
+- [ ] K に「Accept できた」と Discord 等で送った
 
 ### 自分で開く URL
 

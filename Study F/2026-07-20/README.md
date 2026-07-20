@@ -10,7 +10,7 @@
 | 0 | [[Study F/2026-07-20/0 setup\|準備]] | 5分 |
 | 1 | [[Study F/2026-07-20/1 map words\|地図6語]] | 5分 |
 | 2a | [[Study F/2026-07-20/2a accept invite\|GitHub 招待 Accept]] | 5分 |
-| 2 | [[Study F/2026-07-20/2 clone and start\|コピー・起動]] | 30–45分 |
+| 2 | [[Study F/2026-07-20/2 clone and start\|コピー・起動・Discord通知]] | 30–45分 |
 | 3 | [[Study F/2026-07-20/3 public url\|公開 URL]] | K 待ち |
 | R1 | [[Study F/2026-07-20/R1 rehearsal\|リハーサル1]] | 16:00–18:00 |
 

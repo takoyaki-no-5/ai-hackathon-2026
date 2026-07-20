@@ -41,7 +41,7 @@ public/demo/
 
 ```powershell
 git add public/demo/
-git commit -m "chore: demo images for review"
+git commit -m "デモ用画像を追加する。"
 git push
 ```
 

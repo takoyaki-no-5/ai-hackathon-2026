@@ -17,7 +17,7 @@
 
 ### 手順
 
-1. K から URL が届くのを待つ（LINE 等）
+1. K から URL が届くのを待つ（Discord 等）
 2. Mac Chrome のアドレス欄に貼って Enter
 3. スマホ Chrome でも同じ URL を開く
 

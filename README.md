@@ -26,6 +26,7 @@
 #### 秘密情報
 
 - [[secrets/README|secrets]] — APIキーは `secrets/.env`（gitignore・上限〜¥500）
+- Discord push通知 — GitHub Secret `DISCORD_WEBHOOK_URL`（[[Study K/2026-07-20/3b push notify k|3b]]）
 
 #### Cursor
 

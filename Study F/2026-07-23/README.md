@@ -3,7 +3,7 @@
 [[Study F/README|Study F]]／**19:45〜22:45**／**Chrome + スマホ**  
 新しい勉強・新機能なし。**練習だけ**。
 
-途中参加: [[Study F/README|追いつき3点]] → [[Study F/2026-07-20/2 clone and start|起動]] だけ先に。
+途中参加: [[Study F/README|追いつき5点]] → [[Study F/2026-07-20/2 clone and start|起動]] だけ先に。
 
 | 時刻 | タスク |
 |------|--------|

@@ -189,10 +189,12 @@ Chrome → `http://localhost:3000` → 何か送信 → 応答 + **tool: echoTop
 
 #### 7. コミット & push
 
+コミットメッセージは **日本語**（Discord通知にもそのまま出る）。
+
 ```powershell
 git add .
-git commit -m "feat: agent skeleton with one tool"
-git push
+git commit -m "Agent骨格と echoTopic tool を追加する。"
+git push origin main
 ```
 
 ### 止まったときの最小

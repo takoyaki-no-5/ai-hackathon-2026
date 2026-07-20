@@ -62,7 +62,7 @@ analyzeImage: tool({
 
 ```powershell
 git add .
-git commit -m "feat: image input flow with agent"
+git commit -m "画像入力フローをAgentに載せる。"
 git push
 ```
 

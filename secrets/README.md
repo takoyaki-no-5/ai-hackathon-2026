@@ -32,6 +32,7 @@ cp secrets/operators/F.md secrets/operator.md
 - 実キーは `secrets/.env`（gitignore）
 - 雛形は `secrets/.env.example`
 - operator に APIキーを書かない
+- Discord Webhook は **GitHub Actions Secret**（`DISCORD_WEBHOOK_URL`）。`.env` には書かない → [[Study K/2026-07-20/3b push notify k|3b]]
 
 ### 自分の方針（2026-07-12）
 

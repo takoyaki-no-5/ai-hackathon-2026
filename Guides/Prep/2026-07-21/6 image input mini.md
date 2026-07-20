@@ -75,7 +75,7 @@ async function onImage(e: React.ChangeEvent<HTMLInputElement>) {
 
 ```powershell
 git add .
-git commit -m "feat: minimal image input"
+git commit -m "画像入力の最小実装を追加する。"
 git push
 ```
 

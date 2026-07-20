@@ -21,7 +21,16 @@
 
 ### 手順
 
-#### 2-1. Mac にコピー（初回だけ）
+#### 2-1. Discord 通知（Mac で画面に出す）
+
+K が `main` に push したら Discord に届く。詳細: [[Guides/Prep/2026-07-20/3a push notify discord|push 通知 Discord]]
+
+1. K から招待された Discord の通知チャンネルを開く
+2. チャンネル右クリック → **通知設定 → すべてのメッセージ**
+3. **Discord** アプリのデスクトップ通知を ON（システム設定でも Discord を許可）
+4. K の push 後に Mac にバナーが出るか確認
+
+#### 2-2. Mac にコピー（初回だけ）
 
 ```bash
 cd ~/Documents
@@ -29,13 +38,13 @@ git clone https://github.com/takoyaki-no-5/ai-hackathon-2026.git
 cd ai-hackathon-2026
 ```
 
-#### 2-2. Cursor で開く
+#### 2-3. Cursor で開く
 
 1. Cursor → **File** → **Open Folder**
 2. さっきのフォルダを選ぶ
 3. 左にファイル一覧が出れば成功
 
-#### 2-3. 起動
+#### 2-4. 起動
 
 ```bash
 pnpm install

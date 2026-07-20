@@ -52,13 +52,13 @@ Vercel では `secrets/.env` ファイルは無い。**env はダッシュボー
 
 ```powershell
 git add .
-git commit -m "..."
+git commit -m "変更理由を日本語で短く書く。"
 git push origin main
 ```
 
-Vercel が自動ビルド → 1–3分で URL 更新。
+Vercel が自動ビルド → 1–3分で URL 更新。push は Discord にも通知される。
 
-#### 6. F に共有
+#### 6. F に共有（Discord）
 
 ```
 公開 URL: https://＜プロジェクト＞.vercel.app

@@ -28,7 +28,7 @@
 1. リポ → **Settings** → **Collaborators**（または **Manage access**）
 2. **Add people** → F の `@username`
 3. Role: **Write**（push 不要なら Read でも可。文言変更は Write 推奨）
-4. F に「招待メールが届く」と LINE 等で伝える
+4. F に「招待メールが届く」と Discord 等で伝える
 
 #### 4. F 側（F がやる）
 
@@ -52,4 +52,4 @@ Accept できたら教えて。
 - `secrets/` と `.env` は **gitignore** 済みか確認（#4a で `.gitignore` に `secrets/.env` を入れる）
 - F に API キーは渡さない
 
-次: [[Guides/Prep/2026-07-20/5 roles|#5 役割合意]]
+次: [[Guides/Prep/2026-07-20/3a push notify discord|#3a Discord push通知]] → [[Guides/Prep/2026-07-20/5 roles|#5 役割合意]]

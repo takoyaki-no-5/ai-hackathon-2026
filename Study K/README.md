@@ -1,7 +1,7 @@
 ﻿### K 日次
 
 勝ち方: [[study schedule]]／タスク: [[tasks]]／F: [[Study F/README|Study F]]  
-**Windows**・火–金 **19:45開始**。リハはFと最初から通す。
+火–金 **19:45開始**。リハはFと最初から通す。F の日次は [[Study F/README|Study F]]（同日枠で噛み合わせ）。
 
 各日は **フォルダ**。タスクごとにファイルがあり、URL・コマンド・Cursor 依頼文を書く。
 
@@ -13,7 +13,8 @@
 | 木 | [[Study K/2026-07-23/README\|7/23]] | **R2 3h** |
 | 金 | [[Study K/2026-07-24/README\|7/24]] | 点検・**R3**・寝る |
 
-必須・やらないは [[tasks]] と [[study schedule]] に従う。
+必須・やらないは [[tasks]] と [[study schedule]] に従う。  
+コミットメッセージは **日本語**（Discord通知にも出る）。push通知: [[Study K/2026-07-20/3b push notify k|3b]]
 
 ### 使い方
 
