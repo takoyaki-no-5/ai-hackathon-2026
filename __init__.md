@@ -12,6 +12,7 @@
 #### 技術
 
 - [[stack]] — 路線の決定メモ（入口）
+- [[Concepts/Selection/__init__|Selection]] — 技術選定の比較
 - [[Concepts/vercel|vercel]] — Vercel とは何か
 - [[Concepts/zod|zod]] — 実行時の型チェック（Agent tool・LLM出力）
 

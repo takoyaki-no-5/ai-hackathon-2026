@@ -41,6 +41,8 @@
 | 役割 | 公開＋API | 通し済みなら説明用オプションのみ |
 | 向く | 模試・当日の初速 | Bedrockを「見せたい」ときだけ |
 
+Cloudflare 比較 → [[Concepts/Selection/vercel vs cloudflare|vercel vs cloudflare]]
+
 ### 開発環境（固定）
 
 | 項目 | 採用 |
