@@ -11,6 +11,9 @@ dist/
 secrets/*
 !secrets/README.md
 !secrets/.env.example
+!secrets/operator.example.md
+!secrets/operators/
+!secrets/operators/**
 
 # エディタ
 .vscode/

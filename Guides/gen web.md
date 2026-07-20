@@ -1,6 +1,7 @@
 ### 生成の暴力 × Web（6型の解説）
 
-方針: 重い動画APIを待たず、**ブラウザ上の見た目そのものをAIに連続生成**させて「動いてる感」を出す。待ち少・写真チームと被りにくい。
+方針: 見た目をAIに連続生成する演出メモ。  
+**位置づけはサブ・任意**（落としても本体は動く）。本線は Agent＋画像尖り → [[Guides/slot ideas|slot ideas]]
 
 共通のコツ:
 - 全部自由生成は壊れる → **テンプレ＋差し替えスロット**（色・時間・コピー・数個のクラス名だけAIに任せる等）
@@ -116,12 +117,14 @@
 | 物語で刺す | **4 DOMシーン** |
 | 一言で豹変 | **3 フィルタ** or **6 UIスキーマ** |
 
-予選おすすめの最小セット: **5（顔）＋1（動き）**。余裕があれば 4 を足す。
+サブとしての最小セット: **5（顔）＋ html/css ライブ**。本体が落ちても本命A/Bは動くこと。
 
-動く最小デモ（HTML + `@keyframes`）:
+デモ（型1+4寄せ）: AIが `{ bg, html, css }`（`@keyframes`）を返す。
+
+動く最小デモ:
 1. `secrets/.env` にキー（雛形は `.env.example`）
 2. `prototype/css-live` で `node server.mjs`
 3. http://localhost:8787 → 「AIで表現」／「3シーン連続」
-4. 応答は `{ bg, html, css }`。script / `url(` / `@import` はクライアント側で弾く
+4. script / `url(` / `@import` はクライアント側で弾く
 
-関連: [[stack]] / [[Guides/slot ideas|slot ideas]]
+関連: [[stack]] / [[Guides/slot ideas|slot ideas]] / [[tasks]]

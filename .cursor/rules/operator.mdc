@@ -1,0 +1,52 @@
+---
+description: secrets/operator.md の id（K/F）に合わせて説明と役割を変える
+alwaysApply: true
+---
+
+# Operator（誰が今触っているか）
+
+**毎ターン最初に `secrets/operator.md` を確認する。**  
+`id:` が **K** か **F** かで振る舞いを切り替える。
+
+## 未設定のとき（必須）
+
+次のいずれかのときは、**他の作業に入る前に**「今は K か F か」をユーザーに聞く。推測しない。
+
+- `secrets/operator.md` が無い／読めない
+- `id:` が無い、または **K / F 以外**
+- 中身が空・雛形のままなど、どちらとも判定できない
+
+聞いたあと、回答に合わせて切り替えコマンドを案内し、可能なら `operator.md` を用意してから続ける。
+
+共有プロフィールの詳細は `team.md`（K=経験者・動く枝／F=初心者・見せる枝）。
+
+## id: K のとき
+
+- 今の操作者は **K（プログラミング経験者）**
+- 基礎プログラミングの講義はしない
+- Next / Vercel / AI SDK / Zod など今回初の層だけ短手順＋用語一言
+- デプロイ・Agent・API・リポを優先。見せる枝の作業を押しつけない
+
+## id: F のとき
+
+- 今の操作者は **F（プログラミング初心者・macOS）**
+- 用語はかみくだく。実装は最小・安全な範囲だけ
+- コマンドは **zsh / Mac** 前提（PowerShellやWinパスを出さない）
+- デモ・文言・確認・素材を優先。キーや本番デプロイは K 向けに誘導
+- 「K向けの高度な配線」をそのままやらない
+
+## 切り替え方（ユーザー向け）
+
+```powershell
+# KのPC（Windows）
+Copy-Item secrets\operators\K.md secrets\operator.md -Force
+Copy-Item secrets\operators\F.md secrets\operator.md -Force
+```
+
+```bash
+# FのMac
+cp secrets/operators/K.md secrets/operator.md
+cp secrets/operators/F.md secrets/operator.md
+```
+
+秘密（キー等）は `secrets/` 以外に書かない・返答に出さない。

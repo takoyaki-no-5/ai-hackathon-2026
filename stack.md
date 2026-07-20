@@ -1,47 +1,66 @@
+### 確定スタック
+
+前提: 本線=Agent／尖り=画像生成 or 入力／サブ=見た目変更（任意）→ [[Guides/slot ideas|slot ideas]]
+
+| 層 | 採用 | 理由 |
+|----|------|------|
+| 画面＋API | **Next.js**（App Router）+ TS | Agent・画像UP・キー秘匿を1リポで |
+| 公開 | **Vercel** | 60分URL向き。環境変数でキー管理 → [[Concepts/vercel|vercel]] |
+| AI配線 | **Vercel AI SDK**（`ai` + `@ai-sdk/openai` + `@ai-sdk/react`） | tool呼び出しのストリーム表示が楽 |
+| LLM本線 | **OpenAI** | Vision＋画像生成＋toolを同じベンダーで |
+| 構造化 | **Zod** → [[Concepts/zod|zod]] | tool引数・診断結果の型 |
+| 画像生成の置き場 | まず data URL／余裕で **Vercel Blob** | base64をモデルに戻しすぎない |
+| 見た目サブ | Next の Route に `css-live` 相当を移植（任意） | 落としても本体独立 |
+| パッケージ | pnpm / Node 22 | 共通 |
+
+やらない（予選）: Amplify/Bedrockを本線にする／自前GPU必須化／画像だけの単発デモ
+
+### 尖りの載せ方（同一スタック内）
+
+| 尖り | 実装の型 |
+|------|----------|
+| Agent | `streamText` / `useChat` + tools。途中ステップをUIに出す |
+| 画像入力 | メッセージに file parts（Vision）。結果→次の tool／提案まで一連 |
+| 画像生成 | tool として `generateImage`。待ち表示必須 |
+| 見た目変更 | 別エンドポイント。壊れたら安全CSS |
+
+モデル目安: 会話・Vision = 手に入る安定旗艦／画像生成 = 現行の Image API。抽象クライアントで差し替え穴（D）を空ける。
+
+### 障害時
+
+| 落ちたもの | 逃げ |
+|------------|------|
+| OpenAI | AI SDK のまま Anthropic 等に切替（事前に1回通す） |
+| 画像生成が遅い | プレースホルダ＋「生成中」でデモ継続／入力尖りに切替 |
+| Vercel | 通し済みなら Amplify は保険。当日初見AWSは切る |
+
+### 比較メモ（公開路線）
+
+| | Vercel（**本線・固定**） | AWS |
+|--|-------------------|-----|
+| 役割 | 公開＋API | 通し済みなら説明用オプションのみ |
+| 向く | 模試・当日の初速 | Bedrockを「見せたい」ときだけ |
+
+### 開発環境（固定）
+
+| 項目 | 採用 |
+|------|------|
+| AIエディタ | **Cursor**（2人とも・Claude Codeは使わない） |
+| OS | **K=Win**／**F=macOS**。Node は両方 **22**（`engines` か `.nvmrc`） |
+| ランタイム | Node 22 / **pnpm** |
+| ブラウザ | **Chrome**（審査と同じ）＋ DevTools |
+| Git | GitHub 1リポ／短いブランチ or main直＋頻繁 push |
+| 秘密情報 | ローカル `secrets/.env`／Vercel はダッシュボードの env |
+| デプロイ確認 | `vercel` CLI かダッシュボード。模試で push→URL |
+| 通信 | 会場はテザリングB。ツール課金・API上限を先に確認 |
+
+当日の机: Cursor＋Chrome。ノートはこのボルト。リポの `.cursor/rules` / `permissions` を共有。
+
 ### 方針
 
-- **事前通しは全て行う前提**（本線・尖り・回線B・デモまで。以降の議論もこの前提）
-- **未確定**: Vercel / AWS の両方を残す → 両系統で公開URLまで通してから主戦場を決める
-- 武器は Cursor（Win + macOS）で共通
+- **事前通しは全て行う前提**（次: この確定スタックで空→Agent→公開URL）
+- 迷いが出たらこの表に戻る。差し替えは障害時のみ
 
-### 役割の分け方
+### 関連
 
-| 層 | 何をするか | 候補 |
-|----|------------|------|
-| 画面 | ブラウザ UI | Vite+React or Next.js |
-| 公開 | 審査員が触る URL | **Vercel** or Amplify |
-| AI | 作品の頭脳 | OpenAI / Anthropic / Bedrock |
-| 尖り | 差別化1手 | 画像・音声・GPU・Agent 等 |
-
-- Vercel = 公開（＋必要ならサーバーレス API）。LLM 本体ではない → [[Concepts/vercel|vercel]]
-
-### 比較（このハッカソン向け）
-
-| | A Vercel | B AWS |
-|--|----------|--------|
-| 中身 | 公開=Vercel / AI=OpenAI等 | 公開=Amplify / AI=Bedrock |
-| メリット | 初速・デプロイが簡単／事故少／模試で回数を回しやすい | 「AWSでAI」が審査で言いやすい／Bedrock・Agent で尖り枠になりやすい |
-| デメリット | スタック自体は平凡→差はプロダクト側／API課金は別管理 | IAM・権限・初回デプロイで詰まりやすい／当日初見は危険 |
-| 向く場面 | 60分以内にURLを確実に出す本線 | 事前に通し済みなら差別化・AI活用度を盛る |
-
-### 決め方
-
-1. 公開URLまで通った方を主戦場
-2. 片方だけ通ったらそちら
-3. 両方通ったら: **本線はだいたい A**、B は尖り（Bedrock等）だけ乗せる案もあり
-
-### 共通
-
-- TypeScript / pnpm / Node 22
-- 作品に LLM を入れる（AI活用度）
-- 尖り本命は **生成×Web**（固定）。詳細は下と [[study schedule]]
-- 評価の型: [[Guides/past evaluation|past evaluation]]
-
-### 尖り（事前通し前提・予選）
-
-本命: **生成×Web**（タイポ＋CSSライブ）→ [[Guides/gen web|gen web]]  
-埋め込み: **C**（生成ログが小さく見える）  
-テーマ次第で +1: A（診断一連）or B（場面）／写真は主役にしない  
-予備: **D**（新API差し替え穴）／E・Computer use は通し済みならサブ可
-
-勝ちプラン全体: [[study schedule]]
+[[study schedule]] / [[tasks]] / [[Guides/past evaluation|past evaluation]]

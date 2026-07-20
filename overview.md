@@ -3,7 +3,7 @@
 - **5th（7/25）東京オフライン** / 2人・3時間・当日テーマ
 - テーマは **ブロックごと別** → **割当ブロック B**（集合 11:30 / ハッカソン 11:45–14:45 / 終了〜16:15）
 - 作品: Chrome で動く Web → 終了後 URL 提出
-- 学習: [[study schedule]] / スタック: [[stack]] / 進捗: [[tasks]]
+- 学習: [[Study K/__init__|Study K]]（K）／[[Study F/__init__|Study F]]（F）／勝ち方: [[study schedule]] / スタック: [[stack]] / 進捗: [[tasks]]
 
 ### 当日
 
