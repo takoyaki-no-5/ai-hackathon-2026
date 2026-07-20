@@ -2,9 +2,13 @@
 
 枠: **30〜45分**。**初回だけ** clone。2回目以降は `git pull`。
 
+前提: [[Study F/2026-07-20/2a accept invite|2a 招待 Accept]] 済み。
+
 ### 完了の定義
 
-- [ ] GitHub 招待を Accept した
+- [ ] [[Study F/2026-07-20/2a accept invite|2a 招待 Accept]] 済み
+- [ ] リポを **Watch（All Activity）** した
+- [ ] **Mac の画面に GitHub 通知が出る**設定まで終わった
 - [ ] Cursor でプロジェクトフォルダが開いている
 - [ ] `pnpm dev` → Chrome で `http://localhost:3000` に画面が出る
 
@@ -13,26 +17,34 @@
 | 用途 | URL |
 |------|-----|
 | GitHub（招待・通知） | https://github.com/notifications |
-| リポ（K から届いた URL） | `https://github.com/＜ユーザー＞/＜リポ名＞` |
+| GitHub 通知設定 | https://github.com/settings/notifications |
+| リポ | https://github.com/takoyaki-no-5/ai-hackathon-2026 |
 | ローカル画面 | http://localhost:3000 |
 
 ### 手順
 
-#### 2-1. GitHub 招待（初回・K に頼む）
+#### 2-1. GitHub 通知 ON（Mac で画面に出す）
 
-1. K から招待メール or GitHub 通知
-2. **Accept** を押す
-3. リポの URL をメモ（無ければ K に聞く）
+K が `push` したら F の Mac に知らせが出るようにする。
+
+1. リポページ右上 **Watch** → **All Activity**
+2. Chrome で [通知設定](https://github.com/settings/notifications) を開く
+3. **Watching** にチェック（Web 通知を ON）
+4. GitHub が **通知を許可しますか？** と出たら **許可（Allow）**
+5. Mac: **システム設定 → 通知 → Google Chrome**
+   - 通知を許可: **ON**
+   - 通知スタイル: **バナー** か **アラート**（サイドに出る方）
+6. 確認: K に「テスト push して」と頼み、Mac 右上に通知が出るか見る
+
+出ないときは Cursor に「GitHub の push 通知を Mac の Chrome で出したい」と聞く。
 
 #### 2-2. Mac にコピー（初回だけ）
 
 ```bash
 cd ~/Documents
-git clone <KからもらったGitHubのURL>
-cd <プロジェクトのフォルダ名>
+git clone https://github.com/takoyaki-no-5/ai-hackathon-2026.git
+cd ai-hackathon-2026
 ```
-
-例: `git clone https://github.com/team/aihack-2026.git`
 
 #### 2-3. Cursor で開く
 

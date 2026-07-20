@@ -10,6 +10,7 @@
 | 10:00–11:00 | [[Study K/2026-07-20/1 billing\|1]] | OpenAI 課金・残高・上限 |
 | 同上 | [[Study K/2026-07-20/2 accounts\|2]] | 名義固定 |
 | 同上 | [[Study K/2026-07-20/3 invite repo\|3]] | F をリポ招待 |
+| 同上 | [[Study K/2026-07-20/3b push notify k\|3b]] | push 通知 ON（自分の push 含む） |
 | 同上 | [[Study K/2026-07-20/5 roles\|5]] | 役割合意 → [[team]] |
 | 11:00–13:00 | [[Study K/2026-07-20/4a agent skeleton\|4a]] | Next + AI SDK + Agent 骨格 |
 | 14:00–15:45 | [[Study K/2026-07-20/4b vercel url\|4b]] | Vercel 公開 URL |
