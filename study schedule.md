@@ -1,8 +1,8 @@
-### 勝ちプラン（事前通しは全部やる前提）
+﻿### 勝ちプラン（事前通しは全部やる前提）
 
 対象: **5th B（7/25）** → 目標 **ブロック1位 → 11/7決勝**
 
-日次: [[Study K/__init__|Study K]]／[[Study F/__init__|Study F]]／タスク: [[tasks]]
+日次: [[Study K/README|Study K]]／[[Study F/README|Study F]]／タスク: [[tasks]]／手順: [[Study K/README|Prep]]
 
 ### 勝ちの定義（審査4点）
 
@@ -37,7 +37,7 @@
 
 | 分 | やること |
 |----|----------|
-| 0–15 | 読み替え → Agentの仕事＋尖りを3分で決める |
+| 0–15 | 読み替え（**発想モード**: 高 temperature・複数案）→ Agentの仕事＋尖りを3分で決める → [[Concepts/model selection|model selection]] |
 | 15–60 | Agent最小→**公開URL** |
 | 60–150 | Agent厚く／尖り1つ／（余裕）見た目サブ |
 | 150–180 | 機能追加禁止。デモ・逃げ・一文ピッチ |
@@ -50,7 +50,7 @@
 | 日 | K | F |
 |----|---|---|
 | 月 | [[Study K/2026-07-20\|課金→Agent→URL→R1]] | [[Study F/2026-07-20\|起動→URL→R1]] |
-| 火 | [[Study K/2026-07-21\|入力ミニ or 点検骨・45分]] | [[Study F/2026-07-21\|app/＋入力の流れ]] |
+| 火 | [[Study K/2026-07-21\|モデル15分→入力ミニ・45分]] | [[Study F/2026-07-21\|app/＋入力の流れ]] |
 | 水 | [[Study K/2026-07-22\|入力→生成→失敗→素材]] | [[Study F/2026-07-22\|待ち・失敗確認＋文言]] |
 | 木 | [[Study K/2026-07-23\|R2 3h]] | [[Study F/2026-07-23\|R2 3h]] |
 | 金 | [[Study K/2026-07-24\|点検→R3→寝る]] | [[Study F/2026-07-24\|点検→R3]] |
@@ -77,4 +77,4 @@
 
 ### 関連
 
-[[stack]] / [[tasks]] / [[Study K/__init__|Study K]] / [[Study F/__init__|Study F]]
+[[stack]] / [[tasks]] / [[Study K/README|Study K]] / [[Study F/README|Study F]]

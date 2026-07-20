@@ -1,0 +1,29 @@
+---
+description: 確定スタック（Next / Vercel / AI SDK / OpenAI / Zod / pnpm）から外さない
+alwaysApply: true
+---
+
+# スタック（正は `stack.md`）
+
+迷いが出たら `stack.md` に戻る。差し替えは障害時のみ。
+
+## 本線（固定）
+
+- 画面＋API: **Next.js App Router + TypeScript**
+- 公開: **Vercel**（環境変数でキー管理）
+- AI: **Vercel AI SDK**（`ai` + `@ai-sdk/openai` + `@ai-sdk/react`）
+- LLM: **OpenAI**（Vision・画像生成・tool を同じベンダー）
+- 構造化: **Zod**
+- パッケージ: **pnpm** / **Node 22**
+
+## やらない（予選）
+
+- Amplify / Bedrock / Cloudflare を本線にする提案
+- 自前 GPU 必須化
+- 画像だけの単発デモを本体にする
+- Claude Code を開発環境にする（Cursor 固定）
+
+## 障害時だけ
+
+- OpenAI 落ち → AI SDK のまま Anthropic 等（事前通し済み前提）
+- Vercel 落ち → 通し済みなら Amplify は保険。当日初見 AWS は切る

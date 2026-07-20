@@ -1,3 +1,3 @@
-### F 日次
+﻿### F 日次
 
-→ [[Study F/__init__|Study F]]
+→ [[Study F/README|Study F]]

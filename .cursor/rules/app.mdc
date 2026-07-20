@@ -1,0 +1,27 @@
+---
+description: Next.js / AI SDK アプリ実装の置き方（このリポ）
+globs: "**/*.{ts,tsx,js,jsx,mjs,cjs}"
+alwaysApply: false
+---
+
+# アプリ実装
+
+正は `stack.md`。ここはコードを触るときの短い決め事。
+
+## 構成
+
+- App Router。API とキー秘匿は **Route Handler**（クライアントにキーを出さない）
+- AI: `streamText` / `useChat` + tools。途中ステップが UI に出ること
+- tool 引数・LLM 出力の形は **Zod**
+- 画像生成は tool。待ち表示を付ける。base64 をモデルに戻しすぎない
+
+## 実行・依存
+
+- パッケージマネージャは **pnpm**（npm/yarn に切り替えない）
+- Node **22**（`.nvmrc`）
+- ローカル env は `secrets/.env`。Vercel はダッシュボードの env
+
+## 範囲
+
+- 予選は動く最小。抽象化しすぎない
+- 見た目サブ（css-live 相当）は本体と独立。壊れても Agent 本線は生きる

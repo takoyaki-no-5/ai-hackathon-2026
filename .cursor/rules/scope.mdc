@@ -1,0 +1,30 @@
+---
+description: 本 repo は vault ルールと分離。正は本フォルダの .cursor/rules と AGENTS.md
+alwaysApply: true
+---
+
+# Scope（この repo だけ）
+
+## 原因（過去の混入）
+
+このフォルダは `obsidian/Creations/` 配下にある。Cursor は親の `obsidian/.cursor/rules` と `AGENTS.md` を取り込みうる。
+
+親側が `**/*,!Creations/AIハッカソン2026/**` のように **否定 glob** で除外していたが、ワークスペース根がこのフォルダだとパスが `Creations/...` にならず、除外が効かず `**/*.md` が全部に当たっていた。
+
+## 対策（実施済み）
+
+- 親ルールの glob をボルト用フォルダの **肯定リストのみ**に変更（`Creations/**` を含めない）
+- 親 `AGENTS.md` 先頭に「この repo では無視」を明記
+- 本 repo に `AGENTS.md` を置き、索引は `README.md`
+
+## 本 repo で正とするもの
+
+- Agent 指示: ルート `AGENTS.md`
+- Markdown 粒度: `.cursor/rules/notes.mdc`
+- 返答: `.cursor/rules/concise.mdc`
+- その他: この `.cursor/rules/` 配下のみ
+- フォルダ入口: `README.md`（`__init__.md` は使わない）
+
+## 開き方
+
+vault 全体ではなく **`hackathon.code-workspace`**（またはこのフォルダ単体）。親を multi-root に足さない。

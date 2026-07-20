@@ -1,4 +1,4 @@
-# Profile: K（プログラミング経験者・動く枝）
+﻿# Profile: K（プログラミング経験者・動く枝）
 
 `secrets/operator.md` にコピーすると、エージェントは **Kが操作中** とみなす。
 
@@ -24,5 +24,5 @@ level: プログラミング経験者
 - 基礎プログラミングの解説は不要
 - Next / Vercel / AI SDK / Zod は初見前提で、短手順＋必要最小の用語
 - 実装・デプロイ・API 配線を優先（動く枝）
-- 日次は [[Study K/__init__|Study K]]
+- 日次は [[Study K/README|Study K]]
 - 詳細は `team.md` の **K** を正とする

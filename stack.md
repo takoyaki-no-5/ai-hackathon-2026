@@ -24,7 +24,7 @@
 | 画像生成 | tool として `generateImage`。待ち表示必須 |
 | 見た目変更 | 別エンドポイント。壊れたら安全CSS |
 
-モデル目安: 会話・Vision = 手に入る安定旗艦／画像生成 = 現行の Image API。抽象クライアントで差し替え穴（D）を空ける。
+モデル目安: 会話・Vision = 手に入る安定旗艦／画像生成 = 現行の Image API。抽象クライアントで差し替え穴（D）を空ける。発想 vs 安定の切り替え → [[Concepts/model selection|model selection]]
 
 ### 障害時
 
@@ -49,14 +49,14 @@ Cloudflare 比較 → [[Concepts/Selection/vercel vs cloudflare|vercel vs cloudf
 |------|------|
 | AIエディタ | **Cursor**（2人とも・Claude Codeは使わない） |
 | OS | **K=Win**／**F=macOS**。Node は両方 **22**（`engines` か `.nvmrc`） |
-| ランタイム | Node 22 / **pnpm** |
+| ランタイム | Node 22（`.nvmrc`）/ **pnpm** |
 | ブラウザ | **Chrome**（審査と同じ）＋ DevTools |
 | Git | GitHub 1リポ／短いブランチ or main直＋頻繁 push |
 | 秘密情報 | ローカル `secrets/.env`／Vercel はダッシュボードの env |
 | デプロイ確認 | `vercel` CLI かダッシュボード。模試で push→URL |
 | 通信 | 会場はテザリングB。ツール課金・API上限を先に確認 |
 
-当日の机: Cursor＋Chrome。ノートはこのボルト。リポの `.cursor/rules` / `permissions` を共有。
+当日の机: Cursor＋Chrome。ノートはこのボルト。リポの `.cursor/rules` / `permissions` / `.cursorignore` を共有。通し手順は `/smoke-path`。
 
 ### 方針
 

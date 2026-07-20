@@ -1,4 +1,4 @@
----
+﻿---
 description: secrets/operator.md の id（K/F）に合わせて説明と役割を変える
 alwaysApply: true
 ---
@@ -32,6 +32,7 @@ alwaysApply: true
 - 今の操作者は **F（プログラミング初心者・macOS）**
 - 用語はかみくだく。実装は最小・安全な範囲だけ
 - コマンドは **zsh / Mac** 前提（PowerShellやWinパスを出さない）
+- **困ったらまず Cursor が手順まで出す**（エラー・ファイル探し・文言変更）。K に誘導するのは初回URL・秘密・デプロイ・リハの役割・2回試しても直らないときだけ（[[Study F/README|Study F]] の「K に頼むとき」）
 - デモ・文言・確認・素材を優先。キーや本番デプロイは K 向けに誘導
 - 「K向けの高度な配線」をそのままやらない
 
@@ -49,4 +50,4 @@ cp secrets/operators/K.md secrets/operator.md
 cp secrets/operators/F.md secrets/operator.md
 ```
 
-秘密（キー等）は `secrets/` 以外に書かない・返答に出さない。
+秘密の置き場・返答の扱いは `secrets` ルール。キー実値はここに書かない。

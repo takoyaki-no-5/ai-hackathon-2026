@@ -1,14 +1,7 @@
 {
-  // 簡単な調査・ビルド系は自動許可。破壊的操作は Auto-review に任せる。
+  // 調査・ビルド・デプロイ確認は通しやすい。破壊と秘密改変は止める。
   "terminalAllowlist": [
-    "git status",
-    "git diff",
-    "git log",
-    "git show",
-    "git branch",
-    "git remote",
-    "git rev-parse",
-    "git ls-files",
+    "git",
     "ls",
     "dir",
     "pwd",
@@ -23,35 +16,41 @@
     "rg",
     "grep",
     "find",
+    "pnpm",
     "npm",
     "npx",
-    "pnpm",
-    "yarn",
     "node",
     "python",
     "python3",
     "py",
     "pip",
     "pip3",
-    "cargo",
-    "make",
+    "vercel",
     "gh",
+    "tsc",
+    "curl",
+    "Copy-Item",
     "Get-ChildItem",
     "Get-Content",
     "Get-Location",
     "Get-Command",
     "Select-Object",
+    "Test-Path",
     "Write-Host"
   ],
   "autoRun": {
     "allow_instructions": [
-      "Read-only shell commands are fine to auto-approve: list files, show status, diff, log, search, print env that is not secrets.",
-      "Package manager install/build/test commands (npm, pnpm, yarn) are fine to auto-approve.",
-      "Non-destructive git read commands and simple formatting/lint checks are fine."
+      "Read-only shell commands are fine to auto-approve: list files, show status, diff, log, search, print non-secret env names.",
+      "pnpm install/build/test/lint and Next.js local dev checks are fine to auto-approve.",
+      "vercel whoami / vercel env ls / non-destructive deploy status checks are fine.",
+      "Git commands are fine to auto-approve unless they force-push, reset history, or rewrite credentials.",
+      "Simple formatting/lint/typecheck is fine."
     ],
     "block_instructions": [
-      "Always ask before deleting files, resetting git history, force-push, or rewriting .env / credentials.",
-      "Always ask before rm -rf, Remove-Item -Recurse -Force, or commands that modify system config."
+      "Always ask before deleting files, resetting git history, force-push, or rewriting .env / credentials / secrets/.env.",
+      "Always ask before rm -rf, Remove-Item -Recurse -Force, or commands that modify system config.",
+      "Always ask before vercel --prod / production promote if the user did not clearly ask for production deploy.",
+      "Do not print or echo secret values from secrets/.env."
     ]
   }
 }

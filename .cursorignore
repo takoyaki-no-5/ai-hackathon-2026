@@ -1,0 +1,23 @@
+# build / deps
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+
+# logs
+*.log
+npm-debug.log*
+
+# real secrets (keep examples readable)
+secrets/.env
+**/.env
+!**/.env.example
+!secrets/.env.example
+
+# certs / credential files
+*.pem
+*.p12
+credentials.json
+**/credentials.json

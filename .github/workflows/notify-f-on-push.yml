@@ -1,0 +1,22 @@
+# main へ push したら F に LINE 通知（要 GitHub Secret: LINE_NOTIFY_TOKEN）
+name: Notify F on push
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  line-notify:
+    runs-on: ubuntu-latest
+    if: ${{ secrets.LINE_NOTIFY_TOKEN != '' }}
+    steps:
+      - name: LINE Notify
+        env:
+          LINE_NOTIFY_TOKEN: ${{ secrets.LINE_NOTIFY_TOKEN }}
+        run: |
+          MSG="[ai-hackathon-2026] K pushed to main
+          ${{ github.event.head_commit.message }}
+          ${{ github.event.head_commit.url }}"
+          curl -fsS -X POST https://notify-api.line.me/api/notify \
+            -H "Authorization: Bearer ${LINE_NOTIFY_TOKEN}" \
+            --data-urlencode "message=${MSG}"

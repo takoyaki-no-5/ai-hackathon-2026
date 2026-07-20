@@ -1,6 +1,10 @@
 # 依存・生成物
 node_modules/
 dist/
+.next/
+out/
+coverage/
+*.tsbuildinfo
 .DS_Store
 *.log
 
